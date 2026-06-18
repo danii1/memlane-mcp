@@ -1,6 +1,6 @@
 {
   "name": "@memlane/mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for Memlane: search, capture, and manage your saved links and notes",
   "type": "module",
   "bin": {
@@ -8,6 +8,7 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md",
     "LICENSE"
   ],

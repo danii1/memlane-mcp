@@ -6,7 +6,7 @@ import { apiDelete, apiGet, apiPatch, apiPost } from "./client.js"
 
 const server = new McpServer({
   name: "memlane",
-  version: "0.1.0",
+  version: "0.1.1",
 })
 
 server.registerTool(
