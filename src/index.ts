@@ -3,16 +3,24 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod"
 import { apiDelete, apiGet, apiPatch, apiPost } from "./client.js"
+import {
+  CAPTURE_URL,
+  READ_ONLY_CLOSED,
+  WRITE_CLOSED,
+  WRITE_CLOSED_IDEMPOTENT,
+} from "./tool-meta.js"
 
 const server = new McpServer({
   name: "memlane",
-  version: "0.1.1",
+  version: "0.1.2",
 })
 
 server.registerTool(
   "search_saves",
   {
+    title: "Search Saves",
     description: "Semantic search over your saved links and notes in Memlane",
+    annotations: READ_ONLY_CLOSED,
     inputSchema: {
       query: z.string().describe("Natural-language search query"),
       limit: z.number().int().min(1).max(50).optional(),
@@ -32,7 +40,9 @@ server.registerTool(
 server.registerTool(
   "list_saves",
   {
+    title: "List Saves",
     description: "List saved links and notes, newest first",
+    annotations: READ_ONLY_CLOSED,
     inputSchema: {
       limit: z.number().int().min(1).max(100).optional(),
       cursor: z.string().optional(),
@@ -74,8 +84,10 @@ server.registerTool(
 server.registerTool(
   "get_save",
   {
+    title: "Get Save",
     description:
       "Get a saved link or note by id, optionally including full markdown content",
+    annotations: READ_ONLY_CLOSED,
     inputSchema: {
       id: z.string().uuid(),
       includeContent: z.boolean().optional(),
@@ -105,8 +117,10 @@ server.registerTool(
 server.registerTool(
   "capture_url",
   {
+    title: "Capture URL",
     description:
       "Save a URL to Memlane (background enrichment: extract, embed, classify)",
+    annotations: CAPTURE_URL,
     inputSchema: {
       url: z.string().url(),
       projectId: z.string().uuid().nullable().optional(),
@@ -126,7 +140,9 @@ server.registerTool(
 server.registerTool(
   "create_note",
   {
+    title: "Create Note",
     description: "Create a markdown note in Memlane",
+    annotations: WRITE_CLOSED,
     inputSchema: {
       title: z.string(),
       content: z.string(),
@@ -148,7 +164,9 @@ server.registerTool(
 server.registerTool(
   "update_note",
   {
+    title: "Update Note",
     description: "Update a note's title and/or markdown body",
+    annotations: WRITE_CLOSED_IDEMPOTENT,
     inputSchema: {
       id: z.string().uuid(),
       title: z.string().optional(),
@@ -168,7 +186,11 @@ server.registerTool(
 
 server.registerTool(
   "list_projects",
-  { description: "List Memlane projects" },
+  {
+    title: "List Projects",
+    description: "List Memlane projects",
+    annotations: READ_ONLY_CLOSED,
+  },
   async () => {
     const data = await apiGet<{ projects: unknown[] }>("/v1/projects")
     return {
@@ -179,7 +201,11 @@ server.registerTool(
 
 server.registerTool(
   "list_topics",
-  { description: "List Memlane topics (general and project-scoped)" },
+  {
+    title: "List Topics",
+    description: "List Memlane topics (general and project-scoped)",
+    annotations: READ_ONLY_CLOSED,
+  },
   async () => {
     const data = await apiGet<{ topics: unknown[] }>("/v1/topics")
     return {
@@ -191,7 +217,9 @@ server.registerTool(
 server.registerTool(
   "add_topic_to_save",
   {
+    title: "Add Topic to Save",
     description: "Attach a topic to a saved link or note",
+    annotations: WRITE_CLOSED_IDEMPOTENT,
     inputSchema: {
       itemId: z.string().uuid(),
       topicId: z.string().uuid(),
@@ -211,7 +239,9 @@ server.registerTool(
 server.registerTool(
   "remove_topic_from_save",
   {
+    title: "Remove Topic from Save",
     description: "Remove a topic from a saved link or note",
+    annotations: WRITE_CLOSED_IDEMPOTENT,
     inputSchema: {
       itemId: z.string().uuid(),
       topicId: z.string().uuid(),
