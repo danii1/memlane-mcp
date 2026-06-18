@@ -28,7 +28,7 @@ This server runs locally via stdio. Most compatible hosts use the same JSON shap
 
 | Variable | Required | Default |
 |----------|----------|---------|
-| `MEMLANE_API_KEY` | Yes | — |
+| `MEMLANE_API_KEY` | Yes | n/a |
 | `MEMLANE_API_URL` | No | `https://api.memlane.io` |
 
 After `npm install -g @memlane/mcp`, you can use `"command": "memlane-mcp"` instead of `npx`.
@@ -74,12 +74,14 @@ ChatGPT, Claude Desktop, Claude on the web, and other **remote** MCP clients can
 **URL:** `https://api.memlane.io/mcp`
 
 1. In your AI app, add a custom MCP connector with that URL.
-2. Complete the OAuth sign-in flow (Memlane account — magic link or future social providers).
+2. Complete the OAuth sign-in flow (Memlane account: magic link or future social providers).
 3. Approve access on the consent screen.
 
 No API key required. Disconnect by removing the connector in your AI app's settings.
 
 ## Tools
+
+See **[docs/API.md](docs/API.md)** for full tool parameters, REST mappings, request/response shapes, and curl examples.
 
 | Tool | Description |
 |------|-------------|
@@ -93,7 +95,7 @@ No API key required. Disconnect by removing the connector in your AI app's setti
 
 ## Security
 
-API keys are secrets. Store them in your MCP host's environment config — never commit them to version control. Revoke a leaked key in **Manage → Connections → API keys**.
+API keys are secrets. Store them in your MCP host's environment config. Never commit them to version control. Revoke a leaked key in **Manage → Connections → API keys**.
 
 ## License
 
