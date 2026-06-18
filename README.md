@@ -81,7 +81,10 @@ No API key required. Disconnect by removing the connector in your AI app's setti
 
 ## Tools
 
-See **[docs/API.md](docs/API.md)** for full tool parameters, REST mappings, request/response shapes, and curl examples.
+The local server exposes **10 MCP tools**. Full function reference:
+
+- **[docs/TOOLS.md](docs/TOOLS.md)** — what each tool does, parameters, return shapes, and workflow tips
+- **[docs/API.md](docs/API.md)** — REST mappings, auth scopes, and curl examples
 
 | Tool | Description |
 |------|-------------|

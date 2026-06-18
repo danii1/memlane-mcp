@@ -2,6 +2,8 @@
 
 `@memlane/mcp` is a thin MCP wrapper around Memlane's REST API. Every MCP tool maps to one or more HTTP calls on `https://api.memlane.io/v1/*`.
 
+For **local MCP tool behavior** (parameters, return shapes, workflows), see [TOOLS.md](TOOLS.md).
+
 The same tools are also available on the hosted remote MCP at `https://api.memlane.io/mcp` (OAuth, no API key). Remote search and capture are rate-limited per user.
 
 ## Authentication
